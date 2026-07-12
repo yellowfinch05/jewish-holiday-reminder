@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -17,12 +17,15 @@ export const metadata: Metadata = {
   description:
     'Never miss a Jewish holiday. Accurate sunset-based reminders for Shabbat, holidays, and fast days.',
   manifest: '/manifest.json',
-  themeColor: '#1e293b',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: "Z'manim",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#1e293b',
 };
 
 export default function RootLayout({

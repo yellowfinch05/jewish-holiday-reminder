@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
-  const supabase = createServerClient(
+  const _supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -23,19 +23,18 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // IMPORTANT: Avoid writing any logic between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user && !request.nextUrl.pathname.startsWith('/login')) {
-    // No user, redirect to login page
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
-  }
+  // TODO: Re-enable auth redirect when authentication is implemented (Phase 2).
+  // Until then, allow all requests to pass through for development/testing.
+  //
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
+  //
+  // if (!user && !request.nextUrl.pathname.startsWith('/login')) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = '/login';
+  //   return NextResponse.redirect(url);
+  // }
 
   return supabaseResponse;
 }
