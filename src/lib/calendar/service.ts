@@ -37,6 +37,13 @@ export class HolidayService {
   }
 
   /**
+   * Returns all holidays within a date range, regardless of whether they're past or future.
+   */
+  getHolidaysInRange(start: Date, end: Date): Holiday[] {
+    return this.provider.getHolidaysInRange(start, end);
+  }
+
+  /**
    * Returns the next holiday (closest upcoming).
    */
   getNextHoliday(): Holiday | null {
